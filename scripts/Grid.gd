@@ -1,6 +1,7 @@
 extends TileMap
 
 var c = 0
+var store = 0
 
 func _ready():
 	print("Hello")
@@ -9,16 +10,15 @@ func _ready():
 			print(i, "-", n, ":", self.get_cell(i,n))
 
 func _process(delta):
-	c += delta * 5
-	if c >= 60:
-		c = 0
-	set_cell(1, 1, int(c))
+	pass
 
 func _input(event):
 	if event is InputEventMouseButton \
 		and event.button_index == BUTTON_LEFT \
 		and event.is_pressed():
-		  print(event.position)
-		  var i = (self.world_to_map(event.position))
-		  print(i)
-		  set_cell(i.x, i.y, get_cell(i.x, i.y)+1)
+			print(event.position)
+			var i = (self.world_to_map(event.position))
+			if i.y == 10:
+				store = i.x
+			elif i.y < 10:
+				self.set_cell(i.x, i.y, store)
